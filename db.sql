@@ -116,3 +116,46 @@ CREATE TABLE IF NOT EXISTS `drugstoredb`.`purchase-drugs` (
     REFERENCES `drugstoredb`.`drug` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
+
+/*Опис поставки. Дата, кіількість ящиків, ціна за ящик, назва ліків та виробник*/
+CREATE TABLE IF NOT EXISTS `drugstoredb`.`Supply`(
+    `supplyId` INT NOT NULL,
+    `supplyDate` DATE NOT NULL,
+    `boxQuantity` INT NOT NULL,
+    `boxPrice` INT NOT NULL,
+    `drugName` VARCHAR(50),
+    `distributor` VARCHAR(50),
+    PRIMARY KEY (`supplyId`));
+
+/*Рух коштів поставки. Сума поставки та айді поставки щоб знайти суму(к-сть * ціну) та дізнатися дату*/
+CREATE TABLE IF NOT EXISTS `drugstoredb`.`MovementsSupply`(
+    `movementId` INT NOT NULL,
+    `movementSum` INT NOT NULL,
+    `FK_supply_id` INT NOT NULL,
+    PRIMARY KEY (`movementId`),
+	CONSTRAINT `FK_supply_id`
+    FOREIGN KEY (`FK_supply_id`)
+    REFERENCES `drugstoredb`.`Supply` (`supplyId`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+/*Рух коштів покупки. Айді покупки щоб знайти суму та дізнатися дату*/
+CREATE TABLE IF NOT EXISTS `drugstoredb`.`MovementsPurchase`(
+    `movementId` INT NOT NULL,
+    `FK_purchase_movement` INT NOT NULL,
+    PRIMARY KEY (`movementId`),
+	CONSTRAINT `FK_purchase_movement`
+    FOREIGN KEY (`FK_purchase_movement`)
+    REFERENCES `drugstoredb`.`purchase` (`idpurchase`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+/*Сальдо. Дата, витрати, доходи та залишок коштів*/
+CREATE TABLE IF NOT EXISTS `drugstoredb`.`Saldo`(  
+  `saldoDate` DATE NOT NULL,
+  `costs` INT NOT NULL,
+  `revenues` INT NOT NULL,
+  `remainder` INT
+);
