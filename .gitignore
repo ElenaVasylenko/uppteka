@@ -1,0 +1,22 @@
+# Created by .ignore support plugin (hsz.mobi)
+*.class
+/target/
+*.jar
+*.war
+.idea
+.metadata
+/src/main/resources/database.properties
+TrainingCoursesManagementSystem.iml
+/bin/
+.classpath
+.project
+.settings
+#NetBeans gitignore
+**/META-INF
+nb-configuration.xml
+
+# IntelliJ
+apteka.iml
+
+# Mac
+**/.DS_Store
